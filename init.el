@@ -54,6 +54,11 @@ This function should only modify configuration layer settings."
      syntax-checking
      ;; version-control
      treemacs
+
+     ;; programming layers
+     c-c++
+     python
+     javasrcipt
      )
 
    ;; List of additional packages that will be installed without being
