@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
-;; Author:  <dwuggh@DESKTOP-VDES5FK-wsl>
+;; Author: DESKTOP-VDES5FK <dwuggh@DESKTOP-VDES5FK-wsl>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -29,34 +29,31 @@
 
 ;;; Code:
 
+
 (defconst dwuggh-packages
-  '()
-  "The list of Lisp packages required by the dwuggh layer.
+  '(
+    mwim
+    unfill
+    )
+  )
 
-Each entry is either:
+(defun dwuggh/init-mwim ()
+  (use-package mwim
+    :defer t
+    :init
+    (progn
+      (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
+      ;; (global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code)
 
-1. A symbol, which is interpreted as a package to be installed, or
+      (global-set-key (kbd "C-q") 'mwim-end-of-code-or-line)
+      ;; (global-set-key (kbd "C-q") 'mwim-end-of-line-or-code)
+      )))
 
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
-
-    The following keys are accepted:
-
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
-
-    - :location: Specify a custom installation location.
-      The following values are legal:
-
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
-
+(defun dwuggh/init-unfill ()
+  (use-package unfill
+    :defer t
+    :commands (unfill-region unfill-paragraph unfill-toggle)
+    :init
+    (global-set-key [remap fill-paragraph] #'unfill-toggle)))
 
 ;;; packages.el ends here

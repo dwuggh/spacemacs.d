@@ -28,7 +28,9 @@ This function should only modify configuration layer settings."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '(
+                                           "~/.spacemacs.d/"
+                                           )
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
@@ -39,7 +41,8 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; auto-completion
-     better-defaults
+     ;; ( better-defaults :variables
+     ;;                   better-defaults-move-to-end-of-code-first t)
      emacs-lisp
      git
      helm
@@ -62,6 +65,10 @@ This function should only modify configuration layer settings."
      c-c++
      python
      javasrcipt
+     semantic
+
+     ;; private layer
+     dwuggh
      )
 
    ;; List of additional packages that will be installed without being
@@ -485,6 +492,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
+  (load custom-file 'no-error 'no-message)
   )
 
 (defun dotspacemacs/user-config ()
@@ -493,7 +501,8 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq-default tab-width 4)
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   )
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
