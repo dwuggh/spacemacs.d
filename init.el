@@ -67,6 +67,10 @@ This function should only modify configuration layer settings."
      javasrcipt
      semantic
 
+     ;; language support
+     ;; (chinese :variables
+     ;;          chinese-enable-youdao-dict t
+     ;;          )
      ;; private layer
      dwuggh
      )

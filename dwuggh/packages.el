@@ -34,6 +34,9 @@
   '(
     mwim
     unfill
+
+    ;; support for chinese language
+    youdao-dictionary
     )
   )
 
@@ -43,10 +46,7 @@
     :init
     (progn
       (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
-      ;; (global-set-key (kbd "C-a") 'mwim-beginning-of-line-or-code)
-
       (global-set-key (kbd "C-q") 'mwim-end-of-code-or-line)
-      ;; (global-set-key (kbd "C-q") 'mwim-end-of-line-or-code)
       )))
 
 (defun dwuggh/init-unfill ()
@@ -55,5 +55,14 @@
     :commands (unfill-region unfill-paragraph unfill-toggle)
     :init
     (global-set-key [remap fill-paragraph] #'unfill-toggle)))
+
+
+(defun dwuggh/init-youdao-dictionary ()
+  (use-package youdao-dictionary
+    :defer t
+    :init
+    (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
+  )
+
 
 ;;; packages.el ends here
