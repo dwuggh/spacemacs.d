@@ -1,4 +1,5 @@
-;; -*- mode: emacs-lisp; lexical-binding: t -*-
+
+
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -46,13 +47,23 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      helm
+     ;; fasd
      lsp
      markdown
      multiple-cursors
      ( org
        :variables
        org-agenda-files '("~/org/agenda")
+       org-enable-org-journal-support t
+       org-journal-dir "~/org/journal/"
+       org-journal-enable-agenda-integration t
+     )
+     ( latex
+       :variables
+       latex-enable-magic t
+       latex-enable-folding t
        )
+     orgwithlatex
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -64,8 +75,12 @@ This function should only modify configuration layer settings."
      ;; programming layers
      c-c++
      python
-     javasrcipt
+     ;; javasrcipt
      semantic
+
+     ;; themes
+     themes-megapack
+
 
      ;; language support
      ;; (chinese :variables
@@ -507,6 +522,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq-default tab-width 4)
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
