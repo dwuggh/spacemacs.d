@@ -35,6 +35,8 @@
     mwim
     unfill
 
+    ;; configuration for company
+    company
     ;; support for chinese language
     youdao-dictionary
     )
@@ -64,5 +66,9 @@
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
   )
 
-
+(defun dwuggh/post-init-company ()
+  (progn
+    (setq company-idle-delay 0.08)
+    (setq company-minimum-prefix-length 1)
+    ))
 ;;; packages.el ends here

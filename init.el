@@ -48,6 +48,8 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; fasd
+     (auto-completion :variables
+                       auto-completion-enable-snippets-in-popup t)
      lsp
      markdown
      multiple-cursors
@@ -63,6 +65,7 @@ This function should only modify configuration layer settings."
        latex-enable-magic t
        latex-enable-folding t
        )
+     pdf
      orgwithlatex
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -75,7 +78,8 @@ This function should only modify configuration layer settings."
      ;; programming layers
      c-c++
      python
-     ;; javasrcipt
+     javascript
+     html
      semantic
 
      ;; themes
