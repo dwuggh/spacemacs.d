@@ -64,6 +64,7 @@ This function should only modify configuration layer settings."
        :variables
        latex-enable-magic t
        latex-enable-folding t
+       latex-build-command "LaTeX"
        )
      pdf
      orgwithlatex
@@ -79,6 +80,10 @@ This function should only modify configuration layer settings."
      c-c++
      python
      javascript
+     typescript
+     ( vue
+       :variables
+       vue-backend 'dumb)
      html
      semantic
 
@@ -515,7 +520,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-  (load custom-file 'no-error 'no-message)
   )
 
 (defun dotspacemacs/user-config ()
@@ -526,6 +530,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq-default tab-width 4)
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+  (load custom-file 'no-error 'no-message)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   )
 ;; Do not write anything past this comment. This is where Emacs will
