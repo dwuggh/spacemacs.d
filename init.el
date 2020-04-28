@@ -71,7 +71,10 @@ This function should only modify configuration layer settings."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
+     ( spell-checking
+       :variables
+       ispell-program-name "aspell"
+       spell-checking-enable-by-default nil)
      syntax-checking
      ;; version-control
      treemacs
