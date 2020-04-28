@@ -79,8 +79,18 @@ This function should only modify configuration layer settings."
      ;; programming layers
      c-c++
      python
-     javascript
-     typescript
+     ( javascript
+       :variables
+       javascript-backend 'lsp
+       javascript-lsp-linter nil
+       javascript-fmt-tool 'prettier)
+
+     ( typescript
+       :variables
+       typescript-fmt-tool 'prettier
+       typescript-linter 'eslint
+       typescript-backend 'lsp
+       typescript-lsp-linter nil)
      ( vue
        :variables
        vue-backend 'dumb)
@@ -254,7 +264,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12.0
+                               :size  9.0
                                :weight normal
                                :width normal)
 
@@ -283,7 +293,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
-   ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
+   ;; the key pairs `C-i', `TAB' and `2-m', `RET'.
    ;; Setting it to a non-nil value, allows for separate commands under `C-i'
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
@@ -528,7 +538,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (setq-default tab-width 4)
+  (setq-default tab-width 2)
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file 'no-error 'no-message)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
