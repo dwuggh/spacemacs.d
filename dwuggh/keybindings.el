@@ -1,4 +1,5 @@
 (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
+(define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
 
 
 ;; call occur with a sane default

@@ -82,6 +82,7 @@ This function should only modify configuration layer settings."
      ;; programming layers
      c-c++
      python
+     prettier
      ( javascript
        :variables
        javascript-backend 'lsp
@@ -96,7 +97,7 @@ This function should only modify configuration layer settings."
        typescript-lsp-linter nil)
      ( vue
        :variables
-       vue-backend 'dumb)
+       vue-backend 'lsp)
      html
      semantic
 
