@@ -35,7 +35,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(rust
+     vimscript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -46,6 +47,7 @@ This function should only modify configuration layer settings."
      ;;                   better-defaults-move-to-end-of-code-first t)
      emacs-lisp
      git
+     ivy
      helm
      ;; fasd
      (auto-completion :variables
@@ -81,10 +83,14 @@ This function should only modify configuration layer settings."
 
      ;; programming layers
      c-c++
-     python
+     ( python
+       :variables
+       python-backend 'lsp
+       python-lsp-server 'mspyls)
      prettier
      ( javascript
        :variables
+       ;; javascript-import-tool 'import-js
        javascript-backend 'lsp
        javascript-lsp-linter nil
        javascript-fmt-tool 'prettier)
@@ -93,7 +99,7 @@ This function should only modify configuration layer settings."
        :variables
        typescript-fmt-tool 'prettier
        typescript-linter 'eslint
-       typescript-backend 'lsp
+       typescript-backend 'tide
        typescript-lsp-linter nil)
      ( vue
        :variables
@@ -101,14 +107,12 @@ This function should only modify configuration layer settings."
      html
      semantic
 
+     ;; debug adapter protocol
+     dap
+
      ;; themes
      themes-megapack
 
-
-     ;; language support
-     ;; (chinese :variables
-     ;;          chinese-enable-youdao-dict t
-     ;;          )
      ;; private layer
      dwuggh
      )
@@ -221,7 +225,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -230,7 +234,8 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+                                (projects . 7)
+                                )
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -250,8 +255,9 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(dracula
+                         spacemacs-dark
+                         )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -268,7 +274,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size  9.0
+                               :size  10.0
                                :weight normal
                                :width normal)
 
@@ -302,7 +308,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -506,7 +512,7 @@ It should only modify the values of Spacemacs settings."
    ;; Run `spacemacs/prettify-org-buffer' when
    ;; visiting README.org files of Spacemacs.
    ;; (default nil)
-   dotspacemacs-pretty-docs nil))
+   dotspacemacs-pretty-docs t))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -527,6 +533,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
+
+(setq system-time-locale "C")
+;; (global-set-key (kbd "C-i") 'evil-jump-forward)
   )
 
 (defun dotspacemacs/user-load ()
@@ -546,6 +555,8 @@ before packages are loaded."
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file 'no-error 'no-message)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  ;; (setq-default org-format-latex-options (plist-put org-format-latex-options
+  ;;                                           :scale 2.0))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

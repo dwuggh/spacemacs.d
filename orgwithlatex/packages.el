@@ -48,9 +48,17 @@
   (use-package org-edit-latex
     :defer t
     :init
+    (add-hook 'org-mode-hook 'org-edit-latex-mode)
     ))
 
 (defun orgwithlatex/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(latex . t))))
+
+;; (defun orgwithlatex/post-init-org ()
+;;   (progn
+;;     (setq org-format-latex-options (plist-put org-format-latex-options
+;;                                               :scale 2.0)))
+;;    )
+;; (set-default 'preview-scale-function 1.2)
 ;;; packages.el ends here
