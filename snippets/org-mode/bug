@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: bug report
+# key: bug
+# --
+
+** TODO $1
+*** description
+    $2
+*** report date
+    ${3: `(org-current-time)`}
