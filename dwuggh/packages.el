@@ -39,6 +39,10 @@
     company
     ;; support for chinese language
     youdao-dictionary
+
+    ;; enhance folding
+    vimish-fold
+    
     )
   )
 
@@ -71,4 +75,12 @@
     (setq company-idle-delay 0.08)
     (setq company-minimum-prefix-length 1)
     ))
+
+(defun dwuggh/init-vimish-fold ()
+   (use-package vimish-fold
+     :ensure
+     :config
+     (vimish-fold-global-mode 1)
+     :after evil)
+   )
 ;;; packages.el ends here

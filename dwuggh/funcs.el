@@ -14,3 +14,25 @@
   (setq css-indent-offset n) ; css-mode
   )
 (my-setup-indent 2)
+
+
+;; toggle window layout with treemacs buffer visible
+(defun dwuggh/window-layout-toggle ()
+  "Toggle between horizontal and vertical layout of two windows, except treemacs"
+  (interactive)
+  (pcase (treemacs-current-visibility)
+    ('visible
+       (let ((buf (current-buffer)))
+         (delete-window (treemacs-get-local-window))
+         (spacemacs/window-layout-toggle)
+         (treemacs-select-window)
+         (switch-to-buffer buf)
+         (select-window (get-buffer-window buf)))
+     )
+    ('exists
+     (spacemacs/window-layout-toggle))
+    ('none
+     (spacemacs/window-layout-toggle))))
+
+(spacemacs/set-leader-keys "w+" 'dwuggh/window-layout-toggle)
+
