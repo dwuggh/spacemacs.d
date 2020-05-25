@@ -1,6 +1,6 @@
 (defun my-setup-indent (n)
   ;; java/c/c++
-  (setq c-basic-offset (* n 2))
+  ;; (setq c-basic-offset (* n 2))
   (setq python-indent-offset (* n 2))
   ;; web development
   (setq coffee-tab-width n) ; coffeescript

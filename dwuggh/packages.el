@@ -41,7 +41,7 @@
     youdao-dictionary
 
     ;; enhance folding
-    vimish-fold
+    ;; vimish-fold
     
     )
   )
@@ -73,14 +73,14 @@
 (defun dwuggh/post-init-company ()
   (progn
     (setq company-idle-delay 0.08)
-    (setq company-minimum-prefix-length 1)
+    (setq company-minimum-prefix-length 2)
     ))
 
-(defun dwuggh/init-vimish-fold ()
-   (use-package vimish-fold
-     :ensure
-     :config
-     (vimish-fold-global-mode 1)
-     :after evil)
-   )
+;; (defun dwuggh/init-vimish-fold ()
+;;    (use-package vimish-fold
+;;      :ensure
+;;      :config
+;;      (vimish-fold-global-mode 1)
+;;      :after evil)
+;;    )
 ;;; packages.el ends here

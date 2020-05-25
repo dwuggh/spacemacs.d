@@ -35,7 +35,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(yaml
      vimscript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -67,6 +67,7 @@ This function should only modify configuration layer settings."
        latex-enable-magic t
        latex-enable-folding t
        latex-build-command "LaTeX"
+       latex-enable-folding t
        )
      pdf
      orgwithlatex
@@ -83,6 +84,7 @@ This function should only modify configuration layer settings."
 
      ;; programming layers
      c-c++
+     rust
      ( python
        :variables
        python-backend 'lsp
@@ -115,6 +117,10 @@ This function should only modify configuration layer settings."
 
      ;; private layer
      dwuggh
+     ;; my-haskell
+     (haskell
+      :variables
+      haskell-completion-backend 'lsp)
      )
 
    ;; List of additional packages that will be installed without being
@@ -255,7 +261,9 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(dracula
+   dotspacemacs-themes '(
+                         doom-nord
+                         dracula
                          spacemacs-dark
                          )
 
@@ -274,7 +282,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size  10.0
+                               :size  11.0
                                :weight normal
                                :width normal)
 
@@ -555,6 +563,8 @@ before packages are loaded."
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file 'no-error 'no-message)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+  (add-to-list 'load-path "~/.spacemacs.d/lisp/")
   ;; (setq-default org-format-latex-options (plist-put org-format-latex-options
   ;;                                           :scale 2.0))
   )
