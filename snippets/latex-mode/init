@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: init
+# key: init
+# --
+
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage[utf-8]{ctexart}
+\usepackage{tikz}
+\title{${1:title}}
+\date{\today}
+\author{dwuggh}
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+$0
+
+\end{document}

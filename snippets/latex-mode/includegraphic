@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: graphic
+# key: includegraphic
+# --
+
+\includegraphics[width=${1:\linewidth}]{${2:image}}

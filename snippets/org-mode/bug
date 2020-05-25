@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: bug report
-# key: bug
+# key: report
 # --
 
 ** TODO $1

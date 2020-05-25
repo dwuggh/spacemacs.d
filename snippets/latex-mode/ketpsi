@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ketpsi
+# key: ketpsi
+# --
+
+\ket{\Psi}
