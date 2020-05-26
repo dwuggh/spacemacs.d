@@ -38,7 +38,6 @@
     ;; configuration for company
     company
     ;; support for chinese language
-    youdao-dictionary
 
     ;; enhance folding
     ;; vimish-fold
@@ -63,12 +62,6 @@
     (global-set-key [remap fill-paragraph] #'unfill-toggle)))
 
 
-(defun dwuggh/init-youdao-dictionary ()
-  (use-package youdao-dictionary
-    :defer t
-    :init
-    (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
-  )
 
 (defun dwuggh/post-init-company ()
   (progn
