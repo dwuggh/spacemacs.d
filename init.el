@@ -66,7 +66,7 @@ This function should only modify configuration layer settings."
        :variables
        latex-enable-magic t
        latex-enable-folding t
-       latex-build-command "LaTeX"
+       latex-build-command "LatexMk"
        latex-enable-folding t
        )
      pdf
@@ -117,6 +117,7 @@ This function should only modify configuration layer settings."
 
      ;; private layer
      dwuggh
+     language
      ;; my-haskell
      (haskell
       :variables

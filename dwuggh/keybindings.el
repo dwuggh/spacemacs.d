@@ -22,6 +22,9 @@
 (evilified-state-evilify-map occur-mode-map
   :mode occur-mode)
 
+(dolist (mode '(tex-mode latex-mode context-mode))
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "v"   'dwuggh/TeX-view))
 
 ;; selective display
 (defun dwuggh/selective-display ()

@@ -1,6 +1,6 @@
 (defun my-setup-indent (n)
   ;; java/c/c++
-  ;; (setq c-basic-offset (* n 2))
+  (setq c-basic-offset (* n 2))
   (setq python-indent-offset (* n 2))
   ;; web development
   (setq coffee-tab-width n) ; coffeescript
@@ -36,3 +36,19 @@
 
 (spacemacs/set-leader-keys "w+" 'dwuggh/window-layout-toggle)
 
+;; better TeX-view
+(defun dwuggh/TeX-view ()
+  "Start a viewer without confirmation.
+The viewer is started either on region or master file,
+depending on the last command issued."
+  (interactive)
+  (if (= winum--window-count 1)
+      (progn
+        (split-window-right)
+        (winum-select-window-2)
+        (TeX-view))
+    (TeX-view))
+  )
+
+
+;; funcs.el ends here
