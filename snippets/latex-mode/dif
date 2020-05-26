@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dif
+# key: dif
+# --
+\frac{\dif{${1:y}}}{\dif{${2:x}}} $0

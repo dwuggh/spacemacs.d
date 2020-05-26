@@ -2,14 +2,24 @@
 # name: init
 # key: init
 # --
+%
+% Author: dwuggh
+% Created at `(current-time-string)`
+%
+%
 
 \documentclass{article}
 
 \usepackage{amsmath}
 \usepackage{braket}
 \usepackage{graphicx}
-\usepackage[utf-8]{ctexart}
+\usepackage[UTF8]{ctex}
 \usepackage{tikz}
+
+% differential operator
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+
+
 \title{${1:title}}
 \date{\today}
 \author{dwuggh}
