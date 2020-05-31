@@ -34,7 +34,6 @@
     ('none
      (spacemacs/window-layout-toggle))))
 
-(spacemacs/set-leader-keys "w+" 'dwuggh/window-layout-toggle)
 
 ;; better TeX-view
 (defun dwuggh/TeX-view ()

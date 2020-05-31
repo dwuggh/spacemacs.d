@@ -2,6 +2,7 @@
 (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
 
 
+(spacemacs/set-leader-keys "w+" 'dwuggh/window-layout-toggle)
 ;; call occur with a sane default
 (defun occur-dwim ()
   (interactive)
