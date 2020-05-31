@@ -62,12 +62,11 @@ This function should only modify configuration layer settings."
        org-journal-dir "~/org/journal/"
        org-journal-enable-agenda-integration t
      )
-     ( latex
+     ( mylatex
        :variables
        latex-enable-magic t
        latex-enable-folding t
        latex-build-command "LatexMk"
-       latex-enable-folding t
        )
      pdf
      orgwithlatex
@@ -83,7 +82,14 @@ This function should only modify configuration layer settings."
      treemacs
 
      ;; programming layers
-     c-c++
+     ( c-c++
+       :variables
+       c-c++-backend 'lsp-ccls
+       c-c++-lsp-enable-semantic-highlight 'rainbow
+       )
+     (cmake
+      :variables
+      cmake-enable-cmake-ide-support t)
      rust
      ( python
        :variables
@@ -146,7 +152,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-but-keep-unused))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -282,7 +288,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Sarasa Term SC"
                                :size  11.0
                                :weight normal
                                :width normal)

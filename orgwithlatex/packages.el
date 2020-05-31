@@ -31,24 +31,24 @@
 
 (defconst orgwithlatex-packages
   '(
-    cdlatex
+    ;; cdlatex
     org
     org-edit-latex
     )
 )
 
 
-(defun orgwithlatex/init-cdlatex ()
-  (use-package cdlatex
-    :defer t
-    :init
-    (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
+;; (defun orgwithlatex/init-cdlatex ()
+;;   (use-package cdlatex
+;;     :defer t
+;;     :init
+;;     (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
 
 (defun orgwithlatex/init-org-edit-latex ()
   (use-package org-edit-latex
     :defer t
-    :init
-    (add-hook 'org-mode-hook 'org-edit-latex-mode)
+    ;; :init
+    ;; (add-hook 'org-mode-hook 'org-edit-latex-mode)
     ))
 
 (defun orgwithlatex/pre-init-org ()

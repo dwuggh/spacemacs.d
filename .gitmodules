@@ -1,0 +1,3 @@
+[submodule "mylatex/local/cdlatex"]
+	path = mylatex/local/cdlatex
+	url = git@github.com:dwuggh/cdlatex.git

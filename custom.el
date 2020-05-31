@@ -12,6 +12,7 @@
      (output-dvi "Okular")
      (output-pdf "PDF Tools")
      (output-html "xdg-open"))))
+ '(cdlatex-auto-help-delay 0)
  '(custom-safe-themes
    (quote
     ("8e9b37a4eb68542bb3f6d76afd303fb45196f0c536863b61b9b76a64bdc421ef" default)))
