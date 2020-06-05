@@ -59,3 +59,4 @@ the automatic filling of the current paragraph."
 (defun mylatex/font-serif () (interactive) (TeX-font nil ?\C-r))
 (defun mylatex/font-oblique () (interactive) (TeX-font nil ?\C-s))
 (defun mylatex/font-upright () (interactive) (TeX-font nil ?\C-u))
+

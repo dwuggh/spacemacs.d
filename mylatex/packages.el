@@ -32,11 +32,13 @@
 (defconst mylatex-packages
   '(
     auctex
-    cdlatex
+    ;; (cdlatex :location (recipe :fetcher local))
 
     ;; completion
     (company-auctex :requires company)
     (company-reftex :requires company)
+    ( cdlatex :location local)
+    ;; cdlatex
     ;; lsp-latex
     yasnippet
     which-key
@@ -59,7 +61,7 @@
     ))
 
 (defun mylatex/init-auctex ()
-  (use-package auctex
+  (use-package tex
     :defer t
     :init
     (progn
@@ -75,7 +77,7 @@
         (add-hook 'LaTeX-mode-hook 'mylatex/auto-fill-mode))
       (when latex-enable-folding
         (add-hook 'LaTeX-mode-hook 'TeX-fold-mode))
-      (add-hook 'LaTeX-mode-hook 'latex-math-mode)
+      ;; (add-hook 'LaTeX-mode-hook 'latex-math-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
 
@@ -195,17 +197,41 @@
 
 (defun mylatex/init-cdlatex ()
   (use-package cdlatex
-    :defer t
-    ;; :init
-    ;; (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-    ;; (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
-    ;; (add-hook 'tex-mode-hook 'cdlatex-mode)
-    ))
+    ;; :defer t
+    :init
+    (setq cdlatex-math-symbol-alist
+          '(
+            ;; greek alphabets
+            (?e ("\\epsilon" "\\varepsilon"))
+            (?E ("\\Epsilon"))
+            (?k ("\\kappa" "\\varkappa"))
+            (?K ("\\Kappa"))
+            (?f ("\\varphi" "\\phi"))
+            (?F ("\\Phi"))
+            (?v ("\\psi" "\\vee"))
+            (?V ("\\Psi" "\\wedge"))
+            (?X ("\\Chi"))
+
+
+            ;; other symbols
+            (?! ("\\neq" "\\notin"))
+            (?+ ("\\cup" "\\pm"         ))
+            (?0 ("\\emptyset" "\^\\circ"))
+            (?< ("\\leq" "\\leqslant" "\\leftarrow"))
+            (?> ("\\geq" "\\geqslant" "\\rightarrow"))
+            ))
+    )
+  ;; (require 'cdlatex)
+  ;; (load-file "/home/dwuggh/.spacemacs.d/mylatex/local/cdlatex/unicode-symbol.el")
+  ;; (load-file "/home/dwuggh/.spacemacs.d/mylatex/local/cdlatex/cdlatex.el")
+  )
 
 (defun mylatex/post-init-cdlatex ()
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
   (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
   (add-hook 'tex-mode-hook 'cdlatex-mode)
+  ;; (define-key 'tex-mode-map (kbd "\`") 'cdlatex-math-symbol)
+  ;; (define-key 'LaTeX-mode-map (kbd "\`") 'cdlatex-math-symbol)
   )
 
 (defun mylatex/pre-init-auctex-latexmk ()

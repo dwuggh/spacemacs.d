@@ -1,3 +1,6 @@
 [submodule "mylatex/local/cdlatex"]
 	path = mylatex/local/cdlatex
 	url = git@github.com:dwuggh/cdlatex.git
+[submodule "mylatex/local/magic-latex-buffer"]
+	path = mylatex/local/magic-latex-buffer
+	url = git@github.com:dwuggh/magic-latex-buffer.git
