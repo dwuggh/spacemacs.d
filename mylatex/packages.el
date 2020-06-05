@@ -219,6 +219,8 @@
             (?0 ("\\emptyset" "\^\\circ"))
             (?< ("\\leq" "\\leqslant" "\\leftarrow"))
             (?> ("\\geq" "\\geqslant" "\\rightarrow"))
+            (?{ ("\\subset" "\\longleftarrow" "\\longleftrightarrow"))
+            (?} ("\\supset" "\\longrightarrow" "\\longmapsto"))
             ))
     )
   ;; (require 'cdlatex)
