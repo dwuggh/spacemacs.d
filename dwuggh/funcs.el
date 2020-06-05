@@ -35,20 +35,12 @@
      (spacemacs/window-layout-toggle))))
 
 
-;; better TeX-view
-(defun dwuggh/TeX-view ()
-  "Start a viewer without confirmation.
-The viewer is started either on region or master file,
-depending on the last command issued."
-  (interactive)
-  (if (= winum--window-count 1)
-      (progn
-        (split-window-right)
-        (winum-select-window-2)
-        (TeX-view))
-    (TeX-view))
-  )
 
+(defadvice evil-ex-search-next (after dwuggh/advice-evil-ex-search-next activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(defadvice evil-ex-search-previous (after dwuggh/advice-evil-ex-search-previous activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
 ;; (add-to-list 'company-backends '(company-dabbrev))
 
 ;; funcs.el ends here

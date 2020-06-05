@@ -15,10 +15,10 @@
     (let ((TeX-save-query nil))
       (TeX-save-document (TeX-master-file)))
     (TeX-command latex-build-command 'TeX-master-file -1)))
-    ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
-    ;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
-    ;; (when build-proc
-    ;;   (set-process-sentinel build-proc 'mylatex//build-sentinel))))
+;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
+;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
+;; (when build-proc
+;;   (set-process-sentinel build-proc 'mylatex//build-sentinel))))
 
 (defun mylatex//build-sentinel (process event)
   (if (string= event "finished\n")
@@ -60,3 +60,10 @@ the automatic filling of the current paragraph."
 (defun mylatex/font-oblique () (interactive) (TeX-font nil ?\C-s))
 (defun mylatex/font-upright () (interactive) (TeX-font nil ?\C-u))
 
+
+
+(defadvice TeX-view (before advice-TeX-view activate)
+  (if (= winum--window-count 1)
+      (progn
+        (split-window-right)
+        (winum-select-window-2))))
