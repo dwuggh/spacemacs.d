@@ -49,5 +49,6 @@ depending on the last command issued."
     (TeX-view))
   )
 
+;; (add-to-list 'company-backends '(company-dabbrev))
 
 ;; funcs.el ends here

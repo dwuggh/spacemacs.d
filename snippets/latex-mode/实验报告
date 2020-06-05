@@ -1,0 +1,69 @@
+# -*- mode: snippet -*-
+# name: shiyanbaogao
+# key: shiyanbaogao
+# --
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{ctex}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{longtable}
+\author{邹昊江}
+\date{\today}
+\title{${1:title}}
+\hypersetup{
+ pdfauthor={邹昊江},
+ pdftitle={$1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{实验目的}
+\label{sec:orgc638462}
+$0
+
+\section{实验原理}
+\label{sec:orgf4b12f3}
+
+\section{待研究问题}
+\label{sec:orgb83e705}
+
+\subsection{基础实验}
+\label{sec:org1b97d31}
+
+\subsection{提升实验}
+\label{sec:org6f235c5}
+
+\section{实验仪器}
+\label{sec:org26077d7}
+
+\section{测量记录}
+\label{sec:org08b3719}
+
+\section{数据处理}
+\label{sec:orgdde9697}
+
+\subsection{基础实验}
+\label{sec:org758f0b7}
+
+
+\subsection{提升实验}
+\label{sec:orgcf8c47c}
+
+\section{讨论}
+\label{sec:org6716a81}
+\end{document}

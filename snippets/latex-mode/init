@@ -8,13 +8,15 @@
 %
 %
 
-\documentclass{article}
-
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{braket}
 \usepackage{graphicx}
 \usepackage[UTF8]{ctex}
 \usepackage{tikz}
+\usepackage{hyperref}
 
 % differential operator
 \newcommand*{\dif}{\mathop{}\!\mathrm{d}}
@@ -23,6 +25,15 @@
 \title{${1:title}}
 \date{\today}
 \author{dwuggh}
+
+\hypersetup{
+pdfauthor={dwuggh},
+pdftitle={$1},
+pdfkeywords={},
+pdfsubject={},
+pdflang={English}}
+
+
 \begin{document}
 \pagenumbering{gobble}
 \maketitle

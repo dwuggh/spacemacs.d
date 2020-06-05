@@ -48,7 +48,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      ivy
-     helm
+     ;; helm
      ;; fasd
      (auto-completion :variables
                        auto-completion-enable-snippets-in-popup t)
@@ -85,7 +85,7 @@ This function should only modify configuration layer settings."
      ( c-c++
        :variables
        c-c++-backend 'lsp-ccls
-       c-c++-lsp-enable-semantic-highlight 'rainbow
+       ;; c-c++-lsp-enable-semantic-highlight t
        )
      (cmake
       :variables
@@ -571,7 +571,7 @@ before packages are loaded."
   (load custom-file 'no-error 'no-message)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
-  (add-to-list 'load-path "~/.spacemacs.d/lisp/")
+  ;; (add-to-list 'load-path "~/.spacemacs.d/lisp/")
   ;; (setq-default org-format-latex-options (plist-put org-format-latex-options
   ;;                                           :scale 2.0))
   )

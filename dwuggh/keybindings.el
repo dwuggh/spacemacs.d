@@ -44,6 +44,8 @@
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-unordered-key-sequence t)
 
+(define-key evil-insert-state-map (kbd "C-V") 'spacemacs/evil-mc-paste-before)
+;; (define-key org-mode-map (kbd "C-\`") (self-insert-command "\`"))
 
 ;; as another alternative
 
