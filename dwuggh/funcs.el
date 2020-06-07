@@ -44,35 +44,71 @@
 ;; (add-to-list 'company-backends '(company-dabbrev))
 
 
-;; TODO only files can trigger
-;; TODO paste when already exist
-;; TODO interactively set new name
-(defun dwuggh/paste-img-local-path (&optional register fname)
-  "Paste reg as local img"
-  (interactive "*P\nsnew name: ")
-  ;; (message fname)
-  ;; (message (type-of fname))
-  (let* ((text (if register
+;; better image pasting
+;; TODO check out org-paste
+(defun dwuggh/paste-img (&optional register)
+  "copy image to `./img/' when pasting a image path"
+  (interactive "*P")
+  (let ((path (if register
                   (evil-get-register register)
                 (current-kill 0)))
-        (img-dir (concat default-directory "img/"))
-        (img-name (car (reverse (split-string text "/"))))
-        (img-rel-path (concat "./img/" img-name)))
-    ;; (message img-rel-path)
-    ;; (message img-dir)
-    ;; (message img-name)
-    (if (string-prefix-p "file:\/\/" text)
-        (set 'text (substring text 7 nil)))
+        )
+    (set 'path (dwuggh/img-copy-to-local path))
+    (insert path)
+    ))
+
+;; TODO add name parsing
+;; TODO interactively set new name
+(defun dwuggh/img-copy-to-local (img &optional name)
+  "copy `img' to `./img/'
+`./' represents `default-directory'.
+return `./img/name'"
+  (interactive "P")
+  (unless (not (and (set 'img (dwuggh/file-path-p img)) (dwuggh/file-img-p img)))
+    (message img)
     (if (not (member "img" (directory-files default-directory)))
-        (make-directory img-dir))
-    ;; (if 'fname
-    ;;     (set img-name fname))
-    ;; (message text)
-    (copy-file text img-rel-path)
-    (insert img-rel-path)
+        (make-directory (concat default-directory "img/")))
+    (copy-file img "./img/")
+    (concat "./img/" (file-name-nondirectory img))
     )
   )
 
-;; file:///home/dwuggh/.vim/vimrc
+(defun dwuggh/file-path-p (path)
+  "return nil if `path' is neither a (start with `~/' or `/' in unix)
+file path nor a string start with `file://'
+return the correspond path otherwise"
+  (interactive "s")
+  (if (string-prefix-p "file:\/\/" path)
+      (set 'path (substring path 7 nil)))
+  (if (file-name-absolute-p path)
+      path)
+  )
+
+(defconst dwuggh/img-extension '("png" "jpeg" "jpg" "svg" "gif" "tiff" "bmp" "psd" "raw" "webp"))
+
+(defun dwuggh/file-img-p  (file)
+  "return nil if `file' is not an image, return `file' otherwise.
+NOTE: this function DO NOT check whether `file' is a available file-path.
+ Consider using `dwuggh/file-path-p' first."
+  (interactive "s")
+  (let ((extension (downcase (file-name-extension file))))
+    (if (member extension dwuggh/img-extension)
+        file
+      nil))
+  )
+
+;; TODO bind key or advice in org-mode/markdown/tex?
+(defun dwuggh/selected-image-convert-to-local (beg end)
+  "move image from `beg' to `end' to `./img/'"
+  (interactive "r")
+  (let ((text (filter-buffer-substring beg end)))
+    (set 'text (dwuggh/img-copy-to-local text))
+    (if text
+        (progn
+          (evil-delete beg end)
+          (insert text)
+          )
+      (message "cannot convert"))))
+
 
 ;; funcs.el ends here
