@@ -44,27 +44,37 @@
 ;; (add-to-list 'company-backends '(company-dabbrev))
 
 
-;; better image pasting
-;; TODO check out org-paste
-(defun dwuggh/paste-img (&optional register)
-  "copy image to `./img/' when pasting a image path"
-  (interactive "*P")
-  (let ((path (if register
-                  (evil-get-register register)
-                (current-kill 0)))
-        )
-    (set 'path (dwuggh/img-copy-to-local path))
-    (insert path)
-    ))
+(defconst dwuggh/image-extensions-default '("png" "jpeg" "jpg" "svg" "gif" "tiff" "bmp" "psd" "raw" "webp"))
+
+(defun dwuggh/file-path-p (path)
+  "return nil if `path' is neither a (start with `~/' or `/' in unix)
+file path nor a string start with `file://'
+return the correspond path otherwise"
+  (if (string-prefix-p "file:\/\/" path)
+      (set 'path (substring path 7 nil)))
+  (if (file-name-absolute-p path)
+      path)
+  )
+
+
+(defun dwuggh/file-is-image-p  (file)
+  "return nil if `file' is not an image, return `file' otherwise.
+NOTE: this function DO NOT check whether `file' is a available file-path.
+ Consider using `dwuggh/file-path-p' first."
+  (let ((extension (downcase (file-name-extension file))))
+    (if (member extension dwuggh/image-extensions-default)
+        file
+      nil))
+  )
+
 
 ;; TODO add name parsing
 ;; TODO interactively set new name
-(defun dwuggh/img-copy-to-local (img &optional name)
+(defun dwuggh/image-copy-to-local (img &optional name)
   "copy `img' to `./img/'
 `./' represents `default-directory'.
 return `./img/name'"
-  (interactive "P")
-  (unless (not (and (set 'img (dwuggh/file-path-p img)) (dwuggh/file-img-p img)))
+  (unless (not (and (set 'img (dwuggh/file-path-p img)) (dwuggh/file-is-image-p img)))
     (message img)
     (if (not (member "img" (directory-files default-directory)))
         (make-directory (concat default-directory "img/")))
@@ -73,36 +83,27 @@ return `./img/name'"
     )
   )
 
-(defun dwuggh/file-path-p (path)
-  "return nil if `path' is neither a (start with `~/' or `/' in unix)
-file path nor a string start with `file://'
-return the correspond path otherwise"
-  (interactive "s")
-  (if (string-prefix-p "file:\/\/" path)
-      (set 'path (substring path 7 nil)))
-  (if (file-name-absolute-p path)
-      path)
-  )
 
-(defconst dwuggh/img-extension '("png" "jpeg" "jpg" "svg" "gif" "tiff" "bmp" "psd" "raw" "webp"))
+;; better image pasting
+;; TODO check out org-paste
+(defun dwuggh/image-yank (&optional register)
+  "copy image to `./img/' when pasting a image path"
+  (interactive "*P")
+  (let ((path (if register
+                  (evil-get-register register)
+                (current-kill 0)))
+        )
+    (set 'path (dwuggh/image-copy-to-local path))
+    (insert path)
+    ))
 
-(defun dwuggh/file-img-p  (file)
-  "return nil if `file' is not an image, return `file' otherwise.
-NOTE: this function DO NOT check whether `file' is a available file-path.
- Consider using `dwuggh/file-path-p' first."
-  (interactive "s")
-  (let ((extension (downcase (file-name-extension file))))
-    (if (member extension dwuggh/img-extension)
-        file
-      nil))
-  )
 
 ;; TODO bind key or advice in org-mode/markdown/tex?
-(defun dwuggh/selected-image-convert-to-local (beg end)
+(defun dwuggh/image-selected-copy-to-local (beg end)
   "move image from `beg' to `end' to `./img/'"
   (interactive "r")
   (let ((text (filter-buffer-substring beg end)))
-    (set 'text (dwuggh/img-copy-to-local text))
+    (set 'text (dwuggh/image-copy-to-local text))
     (if text
         (progn
           (evil-delete beg end)
@@ -110,5 +111,12 @@ NOTE: this function DO NOT check whether `file' is a available file-path.
           )
       (message "cannot convert"))))
 
+;; (defadvice spacemacs/evil-mc-paste-after (around dwuggh/advice-evil-mc-paste activate)
+;;   (if (equal major-mode 'org-mode)
+;;       (progn
+;;         (insert "[[]]")
+;;         (backward-char 2)
+;;         ())))
 
+;; (advice-add)
 ;; funcs.el ends here
