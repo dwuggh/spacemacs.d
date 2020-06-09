@@ -33,6 +33,7 @@
   '(
     auctex
     ;; (cdlatex :location (recipe :fetcher local))
+    (auctex-latexmk :toggle (string= "LatexMk" latex-build-command))
 
     ;; completion
     (company-auctex :requires company)
@@ -79,7 +80,7 @@
         (add-hook 'LaTeX-mode-hook 'TeX-fold-mode))
       ;; (add-hook 'LaTeX-mode-hook 'latex-math-mode)
       (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
     :config
     (progn
@@ -92,7 +93,7 @@
           ";"   'comment-or-uncomment-region                 ;; C-c ; or C-c :
           ;; TeX-command-run-all runs compile and open the viewer
           "a"   'TeX-command-run-all                         ;; C-c C-a
-          "b"   'latex/build
+          "b"   'mylatex/build
           "k"   'TeX-kill-job                                ;; C-c C-k
           "l"   'TeX-recenter-output-buffer                  ;; C-c C-l
           "m"   'TeX-insert-macro                            ;; C-c C-m
@@ -163,7 +164,7 @@
       (spacemacs/declare-prefix-for-mode 'latex-mode "mi" "insert")
       (spacemacs/declare-prefix-for-mode 'latex-mode "mp" "preview")
       (spacemacs/declare-prefix-for-mode 'latex-mode "mf" "fill"))
-    )))
+    ))
 
 (defun mylatex/init-company-auctex ()
   (use-package company-auctex

@@ -21,6 +21,11 @@
 \author{邹昊江}
 \date{\today}
 \title{${1:title}}
+
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+
+
 \hypersetup{
  pdfauthor={邹昊江},
  pdftitle={$1},
