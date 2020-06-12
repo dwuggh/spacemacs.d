@@ -35,6 +35,9 @@
      :location (recipe :fetcher local))
 
     youdao-dictionary
+
+    pyim
+    ;; (pyim-greatdict :location (recipe :fetcher github :repo "tumashu/pyim-greatdict"))
     )
   "The list of Lisp packages required by the language layer.
 
@@ -67,6 +70,8 @@ Each entry is either:
   (use-package goldendict
     :defer t
     :ensure t
+    :init
+    (spacemacs/set-leader-keys "ou" 'goldendict-dwim)
     )
   )
 
@@ -76,4 +81,28 @@ Each entry is either:
     :init
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
   )
+
+(defun language/init-pyim ()
+  (use-package pyim
+    :config
+    (setq default-input-method "pyim")
+    (setq pyim-default-scheme 'quanpin)
+    (setq greatdict-file "~/.dicts/pyim-greatdict.pyim")
+    (when (file-exists-p greatdict-file)
+      (pyim-extra-dicts-add-dict
+       `(:name "Greatdict-elpa"
+               :file ,greatdict-file
+               :conding utf-8-unix
+               :dict-type pinyin-dict
+               :elpa t)))
+    (pyim-isearch-mode 1)
+    (setq pyim-fuzzy-pinyin-alist
+          '(("en" "eng")
+            ("in" "ing")))
+    (setq pyim-page-length 5)))
+
+;; (defun language/init-pyim-greatdict ()
+;;     (use-package pyim-greatdict
+;;       :init
+;;       (pyim-greatdict-enable)))
 ;;; packages.el ends here
