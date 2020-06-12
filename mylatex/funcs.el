@@ -62,8 +62,7 @@ the automatic filling of the current paragraph."
 
 
 
-(defadvice TeX-view (before advice-TeX-view activate)
-  (if (= winum--window-count 1)
-      (progn
-        (split-window-right)
-        (winum-select-window-2))))
+(advice-add 'TeX-view :before
+              (lambda () (interactive "")
+                  (when (= winum--window-count 1)
+                    (split-window-right-and-focus))))

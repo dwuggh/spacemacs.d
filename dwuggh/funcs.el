@@ -35,7 +35,6 @@
      (spacemacs/window-layout-toggle))))
 
 
-
 (defadvice evil-ex-search-next (after dwuggh/advice-evil-ex-search-next activate)
   (evil-scroll-line-to-center (line-number-at-pos)))
 
@@ -74,7 +73,7 @@ NOTE: this function DO NOT check whether `file' is a available file-path.
   "copy `img' to `./img/'
 `./' represents `default-directory'.
 return `./img/name'"
-  (unless (not (and (set 'img (dwuggh/file-path-p img)) (dwuggh/file-is-image-p img)))
+  (when (and (set 'img (dwuggh/file-path-p img)) (dwuggh/file-is-image-p img))
     (message img)
     (if (not (member "img" (directory-files default-directory)))
         (make-directory (concat default-directory "img/")))
@@ -91,11 +90,18 @@ return `./img/name'"
   (interactive "*P")
   (let ((path (if register
                   (evil-get-register register)
-                (current-kill 0)))
-        )
+                (current-kill 0))))
     (set 'path (dwuggh/image-copy-to-local path))
-    (insert path)
-    ))
+    (cond
+     ((equal major-mode 'org-mode)
+      ;; (set 'path (dwuggh/image-copy-to-local path))
+      (insert (concat "[[" path "]]")))
+     ((equal major-mode 'latex-mode)
+      (insert (concat "\\includegraphics\[width=\\linewidth\]{" path "}")))
+     (t
+      (insert path))
+     )))
+;; (evil-global-set-key 'normal "p" 'dwuggh/image-yank)
 
 
 ;; TODO bind key or advice in org-mode/markdown/tex?
@@ -118,5 +124,4 @@ return `./img/name'"
 ;;         (backward-char 2)
 ;;         ())))
 
-;; (advice-add)
 ;; funcs.el ends here
