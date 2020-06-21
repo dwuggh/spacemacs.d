@@ -130,4 +130,73 @@ return `./img/name'"
 ;;         (backward-char 2)
 ;;         ())))
 
+(advice-add 'gud-common-init :override
+            (lambda (command-line massage-args marker-filter
+				     &optional find-file)
+  (let* ((words (split-string-and-unquote command-line))
+	 (program (car words))
+	 (dir default-directory)
+	 ;; Extract the file name from WORDS
+	 ;; and put t in its place.
+	 ;; Later on we will put the modified file name arg back there.
+	 (file-word (let ((w (cdr words)))
+		      (while (and w (= ?- (aref (car w) 0)))
+			(setq w (cdr w)))
+		      (and w
+			   (prog1 (car w)
+			     (setcar w t)))))
+	 (file-subst
+	  (and file-word (substitute-in-file-name file-word)))
+	 (args (cdr words))
+	 ;; If a directory was specified, expand the file name.
+	 ;; Otherwise, don't expand it, so GDB can use the PATH.
+	 ;; A file name without directory is literally valid
+	 ;; only if the file exists in ., and in that case,
+	 ;; omitting the expansion here has no visible effect.
+	 (file (and file-word
+		    (if (file-name-directory file-subst)
+			(expand-file-name file-subst)
+		      file-subst)))
+	 (filepart (and file-word (concat "-" (file-name-nondirectory file))))
+	 (existing-buffer (get-buffer (concat "*gud" filepart "*"))))
+    (select-window
+     (display-buffer
+      (get-buffer-create (concat "*gud" filepart "*"))
+      '((display-buffer-reuse-window
+        display-buffer-in-previous-window
+        display-buffer-same-window display-buffer-pop-up-window))))
+    (when (and existing-buffer (get-buffer-process existing-buffer))
+      (error "This program is already being debugged"))
+    ;; Set the dir, in case the buffer already existed with a different dir.
+    (setq default-directory dir)
+    ;; Set default-directory to the file's directory.
+    (and file-word
+	 gud-chdir-before-run
+	 ;; Don't set default-directory if no directory was specified.
+	 ;; In that case, either the file is found in the current directory,
+	 ;; in which case this setq is a no-op,
+	 ;; or it is found by searching PATH,
+	 ;; in which case we don't know what directory it was found in.
+	 (file-name-directory file)
+	 (setq default-directory (file-name-directory file)))
+    (or (bolp) (newline))
+    (insert "Current directory is " default-directory "\n")
+    ;; Put the substituted and expanded file name back in its place.
+    (let ((w args))
+      (while (and w (not (eq (car w) t)))
+	(setq w (cdr w)))
+      ;; Tramp has already been loaded if we are here.
+      (if w (setcar w (setq file (file-local-name file)))))
+    (apply 'make-comint (concat "gud" filepart) program nil
+	   (if massage-args (funcall massage-args file args) args))
+    ;; Since comint clobbered the mode, we don't set it until now.
+    (gud-mode)
+    (set (make-local-variable 'gud-target-name)
+	 (and file-word (file-name-nondirectory file))))
+  (set (make-local-variable 'gud-marker-filter) marker-filter)
+  (if find-file (set (make-local-variable 'gud-find-file) find-file))
+  (setq gud-last-last-frame nil)
+  (set-process-filter (get-buffer-process (current-buffer)) 'gud-filter)
+  (set-process-sentinel (get-buffer-process (current-buffer)) 'gud-sentinel)
+  (gud-set-buffer)))
 ;; funcs.el ends here
