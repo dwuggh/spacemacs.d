@@ -17,6 +17,7 @@
  '(evil-want-Y-yank-to-eol nil)
  '(exec-path
    '("/home/dwuggh/.local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/bin" "/usr/lib/jvm/default/bin" "/usr/bin/site_perl" "/usr/bin/vendor_perl" "/usr/bin/core_perl" "/var/lib/snapd/snap/bin" "/usr/lib/emacs/26.3/x86_64-pc-linux-gnu"))
+ '(lsp-enable-on-type-formatting nil)
  '(lsp-haskell-process-args-hie nil)
  '(lsp-haskell-process-path-hie "ghcide")
  '(org-format-latex-options

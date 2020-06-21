@@ -3,6 +3,7 @@
 
 
 (spacemacs/set-leader-keys "w+" 'dwuggh/window-layout-toggle)
+(global-set-key (kbd "C-l") 'evil-scroll-line-to-center)
 ;; call occur with a sane default
 (defun occur-dwim ()
   (interactive)
