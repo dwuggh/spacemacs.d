@@ -42,6 +42,12 @@
   (evil-scroll-line-to-center (line-number-at-pos)))
 ;; (add-to-list 'company-backends '(company-dabbrev))
 
+(advice-add 'evil-org-open-below :override
+            (lambda (count)
+              (interactive "P")
+              (evil-next-line)
+              (evil-org-open-above count)))
+
 
 (defconst dwuggh/image-extensions-default '("png" "jpeg" "jpg" "svg" "gif" "tiff" "bmp" "psd" "raw" "webp"))
 
