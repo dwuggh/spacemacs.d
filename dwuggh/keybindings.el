@@ -43,6 +43,12 @@
 (setq-default evil-escape-unordered-key-sequence t)
 
 (define-key evil-insert-state-map (kbd "C-V") 'spacemacs/evil-mc-paste-before)
+
+;; better pair jumping keys
+(evil-global-set-key 'normal "m" 'evil-jump-item)
+(evil-global-set-key 'visual "m" 'evil-jump-item)
+(evil-global-set-key 'normal "%" 'evil-set-marker)
+(evil-global-set-key 'visual "%" 'evil-set-marker)
 ;; (define-key org-mode-map (kbd "C-\`") (self-insert-command "\`"))
 
 ;; as another alternative
