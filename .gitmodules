@@ -4,3 +4,6 @@
 [submodule "mylatex/local/magic-latex-buffer"]
 	path = mylatex/local/magic-latex-buffer
 	url = git@github.com:dwuggh/magic-latex-buffer.git
+[submodule "mylatex/local/asymbol"]
+	path = mylatex/local/asymbol
+	url = git@github.com:dwuggh/asymbol.git

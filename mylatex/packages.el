@@ -39,6 +39,7 @@
     (company-auctex :requires company)
     (company-reftex :requires company)
     ( cdlatex :location local)
+    ( asymbol :location local)
     ;; cdlatex
     ;; lsp-latex
     yasnippet
@@ -234,12 +235,25 @@
   ;; (load-file "/home/dwuggh/.spacemacs.d/mylatex/local/cdlatex/cdlatex.el")
   )
 
+(defun mylatex/init-asymbol ()
+  (use-package asymbol
+    :config
+    (setq asymbol-help-symbol-linewidth 110
+          asymbol-help-tag-linewidth 110)
+    (asymbol/global-input-unicode-symbol-on)
+    (asymbol/latex-input-symbol-on)
+    (asymbol/org-input-symbol-on)
+    ))
+
+
 (defun mylatex/post-init-cdlatex ()
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
   (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
   (add-hook 'tex-mode-hook 'cdlatex-mode)
-  ;; (define-key 'tex-mode-map (kbd "\`") 'cdlatex-math-symbol)
-  ;; (define-key 'LaTeX-mode-map (kbd "\`") 'cdlatex-math-symbol)
+  (define-key cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol/insert-text-or-symbol)
+  (add-hook 'org-cdlatex-mode-hook
+            (lambda () (interactive)
+            (define-key org-cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol/insert-text-or-symbol)))
   )
 
 (defun mylatex/pre-init-auctex-latexmk ()
