@@ -72,7 +72,14 @@
      ("~" "～")
      ("}" "』")
      ("|" "÷")
-     ("{" "『"))))
+     ("{" "『")))
+ '(safe-local-variable-values
+   '((haskell-completion-backend . ghci)
+     (typescript-backend . tide)
+     (typescript-backend . lsp)
+     (javascript-backend . tide)
+     (javascript-backend . tern)
+     (javascript-backend . lsp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
