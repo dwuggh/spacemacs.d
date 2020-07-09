@@ -37,7 +37,7 @@
 
     ;; configuration for company
     company
-    ;; support for chinese language
+    avy
 
     ;; enhance folding
     ;; vimish-fold
@@ -69,6 +69,10 @@
     (setq company-minimum-prefix-length 2)
     ))
 
+
+(defun dwuggh/post-init-avy ()
+  (setq-default avy-timeout-seconds 0.2)
+  )
 ;; (defun dwuggh/init-vimish-fold ()
 ;;    (use-package vimish-fold
 ;;      :ensure
