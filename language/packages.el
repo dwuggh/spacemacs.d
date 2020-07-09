@@ -36,35 +36,11 @@
 
     youdao-dictionary
 
-    pyim
+    ;; pyim
+    rime
+    smart-input-source
     ;; (pyim-greatdict :location (recipe :fetcher github :repo "tumashu/pyim-greatdict"))
-    )
-  "The list of Lisp packages required by the language layer.
-
-Each entry is either:
-
-1. A symbol, which is interpreted as a package to be installed, or
-
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
-
-    The following keys are accepted:
-
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
-
-    - :location: Specify a custom installation location.
-      The following values are legal:
-
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+    ))
 
 (defun language/init-goldendict ()
   (use-package goldendict
@@ -82,24 +58,62 @@ Each entry is either:
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+))
   )
 
-(defun language/init-pyim ()
-  (use-package pyim
+(defun language/init-rime ()
+  (use-package rime
+    :custom
+    (default-input-method "rime")
+    (setq-default rime-show-candidate 'posframe)
+    (setq-default rime-user-data-dir "~/.config/fcitx/rime/")))
+
+(defun language/init-smart-input-source ()
+  (use-package smart-input-source
+    :init
+    (setq-default smart-input-source-english nil)
+    (setq-default smart-input-source-other "rime")
+    (setq-default smart-input-source-do-get (lambda() current-input-method))
+    (setq-default smart-input-source-do-set (lambda(source) (set-input-method source)))
+
+    ;; (require 'subr-x)
+    ;; (setq-default smart-input-source-english "1")
+    ;; (setq-default smart-input-source-other "2")
+    ;; (setq-default smart-input-source-do-get
+    ;;               (lambda() (string-trim (shell-command-to-string "fcitx-remote"))))
+    ;; (setq-default smart-input-source-do-set
+    ;;               (lambda(source)
+    ;;                 (pcase source
+    ;;                   ("1" (string-trim (shell-command-to-string "fcitx-remote -c")))
+    ;;                   ("2" (string-trim (shell-command-to-string "fcitx-remote -o"))))))
+
+
     :config
-    (setq default-input-method "pyim")
-    (setq pyim-default-scheme 'quanpin)
-    (setq greatdict-file "~/.dicts/pyim-greatdict.pyim")
-    (when (file-exists-p greatdict-file)
-      (pyim-extra-dicts-add-dict
-       `(:name "Greatdict-elpa"
-               :file ,greatdict-file
-               :conding utf-8-unix
-               :dict-type pinyin-dict
-               :elpa t)))
-    (pyim-isearch-mode 1)
-    (setq pyim-fuzzy-pinyin-alist
-          '(("en" "eng")
-            ("in" "ing")))
-    (setq pyim-page-length 5)))
+    ;; enable the /cursor color/ mode
+    (smart-input-source-global-cursor-color-mode nil)
+    ;; enable the /respect/ mode
+    (smart-input-source-global-respect-mode t)
+    ;; enable the /follow context/ mode for all buffers
+    (smart-input-source-global-follow-context-mode t)
+    ;; enable the /inline english/ mode for all buffers
+    (smart-input-source-global-inline-mode t)
+    ))
+
+;; (defun language/init-pyim ()
+;;   (use-package pyim
+;;     :config
+;;     (setq default-input-method "pyim")
+;;     (setq pyim-default-scheme 'quanpin)
+;;     (setq greatdict-file "~/.dicts/pyim-greatdict.pyim")
+;;     (when (file-exists-p greatdict-file)
+;;       (pyim-extra-dicts-add-dict
+;;        `(:name "Greatdict-elpa"
+;;                :file ,greatdict-file
+;;                :conding utf-8-unix
+;;                :dict-type pinyin-dict
+;;                :elpa t)))
+;;     (pyim-isearch-mode 1)
+;;     (setq pyim-fuzzy-pinyin-alist
+;;           '(("en" "eng")
+;;             ("in" "ing")))
+;;     (setq pyim-page-length 5)))
 
 ;; (defun language/init-pyim-greatdict ()
 ;;     (use-package pyim-greatdict
