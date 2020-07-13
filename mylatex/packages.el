@@ -240,9 +240,9 @@
     :config
     (setq asymbol-help-symbol-linewidth 110
           asymbol-help-tag-linewidth 110)
-    (asymbol/global-input-unicode-symbol-on)
-    (asymbol/latex-input-symbol-on)
-    (asymbol/org-input-symbol-on)
+    (asymbol-global-input-unicode-symbol-on)
+    (asymbol-latex-input-symbol-on)
+    (asymbol-org-input-symbol-on)
     ))
 
 
